@@ -3,7 +3,9 @@ import { z } from "zod";
 
 export const env = createEnv({
 	server: {
-		SERVER_URL: z.string().url().optional(),
+		SERVER_URL: z.url().optional(),
+		GOOGLE_CLIENT_SECRET: z.string().min(1).max(100),
+		GOOGLE_CLIENT_ID: z.url(),
 	},
 
 	/**
@@ -17,8 +19,8 @@ export const env = createEnv({
 		VITE_APPWRITE_PROJECT_ID: z.string().min(1).max(100),
 		VITE_APPWRITE_PROJECT_NAME: z.string().min(1).max(100),
 		VITE_APPWRITE_ENDPOINT: z.url(),
+		VITE_APP_URL: z.url().optional(),
 	},
-
 	/**
 	 * What object holds the environment variables at runtime. This is usually
 	 * `process.env` or `import.meta.env`.
