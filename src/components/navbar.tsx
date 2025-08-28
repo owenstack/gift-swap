@@ -1,5 +1,7 @@
 import { Link } from "@tanstack/react-router";
-import { useUser } from "@/lib/auth";
+import { ArrowLeftRight, ListMinus } from "lucide-react";
+import { toast } from "sonner";
+import { authService, useUser } from "@/lib/auth";
 import { getInitials } from "@/lib/helpers";
 import { Logo } from "./logo";
 import { Avatar, AvatarFallback } from "./ui/avatar";
@@ -12,9 +14,6 @@ import {
 	DropdownMenuSeparator,
 	DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
-import { authService } from "@/lib/auth";
-import { toast } from "sonner";
-import { ListMinus, ArrowLeftRight } from "lucide-react";
 
 export function NavBar() {
 	const user = useUser();
@@ -30,10 +29,10 @@ export function NavBar() {
 		<header className="sticky top-0 w-full h-16 border-b flex items-center justify-between px-4">
 			<Logo />
 			<nav className="flex items-center gap-2">
-				<Link className={buttonVariants({ variant: "link" })} to="/app">
+				<Link className={buttonVariants({ variant: "dashed" })} to="/app">
 					<ListMinus /> Feed
 				</Link>
-				<Link className={buttonVariants({ variant: "link" })} to="/app/new">
+				<Link className={buttonVariants({ variant: "dashed" })} to="/app/new">
 					<ArrowLeftRight /> Swap
 				</Link>
 			</nav>
