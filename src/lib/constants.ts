@@ -1,12 +1,16 @@
 export interface ButtonProps {
 	variant?:
-		| "default"
+		| "primary"
+		| "mono"
 		| "destructive"
-		| "outline"
 		| "secondary"
+		| "outline"
+		| "dashed"
 		| "ghost"
-		| "link";
-	size?: "default" | "sm" | "lg" | "icon";
+		| "dim"
+		| "foreground"
+		| "inverse";
+	size?: "icon" | "lg" | "md" | "sm";
 	children: React.ReactNode;
 	className?: string;
 }

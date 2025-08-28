@@ -7,8 +7,8 @@ import type { ButtonProps } from "@/lib/constants";
 import { Button } from "./ui/button";
 
 export function GoogleButton({
-	variant = "default",
-	size = "default",
+	variant = "inverse",
+	size = "md",
 	className,
 }: Omit<ButtonProps, "children">) {
 	const [loading, setLoading] = useState(false);
