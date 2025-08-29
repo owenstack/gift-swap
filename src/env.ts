@@ -20,6 +20,8 @@ export const env = createEnv({
 		VITE_APPWRITE_PROJECT_NAME: z.string().min(1).max(100),
 		VITE_APPWRITE_ENDPOINT: z.url(),
 		VITE_APP_URL: z.url().optional(),
+		VITE_APPWRITE_DATABASE_ID: z.string().min(1).max(100),
+		VITE_APPWRITE_BUCKET_ID: z.string().min(1).max(100),
 	},
 	/**
 	 * What object holds the environment variables at runtime. This is usually

@@ -1,9 +1,14 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { GiftForm } from "@/components/gift-form";
 
 export const Route = createFileRoute("/app/new")({
 	component: RouteComponent,
 });
 
 function RouteComponent() {
-	return <div>Hello "/app/new"!</div>;
+	return (
+		<div>
+			<GiftForm />
+		</div>
+	);
 }
