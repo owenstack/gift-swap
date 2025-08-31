@@ -60,7 +60,7 @@ function RouteComponent() {
 	return (
 		<main className="flex flex-col items-center justify-center h-screen">
 			<div className="flex flex-col gap-6">
-				<div className="flex flex-col gap-6">
+				<div className="flex flex-col gap-6 sm:max-w-sm">
 					<div className="flex flex-col items-center gap-2">
 						<Logo />
 						<h1 className="text-xl font-bold">Welcome to Gift Swap</h1>

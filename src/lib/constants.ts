@@ -39,8 +39,12 @@ export const addOrEditGiftSchema = z.object({
 	state: z.string(),
 });
 
-export const readGiftSchema = z.object({
+export const listGiftSchema = z.object({
 	rows: z.array(addOrEditGiftSchema.extend({ ...coreDbSchema.shape })),
+});
+
+export const readGiftSchema = addOrEditGiftSchema.extend({
+	...coreDbSchema.shape,
 });
 
 export const addCategorySchema = z.object({
