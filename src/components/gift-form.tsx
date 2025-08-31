@@ -1,7 +1,12 @@
-import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { Camera, FileText, Gift, MapPin, Tag } from "lucide-react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 import type { z } from "zod";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
 	Form,
 	FormControl,
@@ -12,21 +17,16 @@ import {
 	FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Camera, Gift, Tag, FileText, MapPin } from "lucide-react";
-import { addOrEditGiftSchema } from "@/lib/constants";
+import { Textarea } from "@/components/ui/textarea";
+import { env } from "@/env";
+import { db, ID, storage } from "@/lib/appwrite";
 import { useUser } from "@/lib/auth";
+import { addOrEditGiftSchema } from "@/lib/constants";
+import { giftKeys } from "@/queries/keys";
+import { CategorySelect } from "./category-select";
 import { conditionConfig, swapTypeConfig } from "./config";
 import GalleryUpload from "./file-upload/gallery-upload";
-import { CategorySelect } from "./category-select";
-import { giftKeys } from "@/queries/keys";
-import { db, ID, storage } from "@/lib/appwrite";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { env } from "@/env";
-import { toast } from "sonner";
 
 export function GiftForm({
 	data,

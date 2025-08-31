@@ -1,9 +1,24 @@
+import { useQuery } from "@tanstack/react-query";
 import { Link, useLocation } from "@tanstack/react-router";
+import { Check, Plus, Share } from "lucide-react";
 import { toast } from "sonner";
+import { env } from "@/env";
+import { useCopyToClipboard } from "@/hooks/use-copy-to-clipboard";
+import { db } from "@/lib/appwrite";
 import { authService, useUser } from "@/lib/auth";
+import { readGiftSchema } from "@/lib/constants";
 import { getInitials } from "@/lib/helpers";
+import { giftKeys } from "@/queries/keys";
 import { Logo } from "./logo";
 import { Avatar, AvatarFallback } from "./ui/avatar";
+import {
+	Breadcrumb,
+	BreadcrumbItem,
+	BreadcrumbLink,
+	BreadcrumbList,
+	BreadcrumbPage,
+	BreadcrumbSeparator,
+} from "./ui/breadcrumb";
 import { Button, buttonVariants } from "./ui/button";
 import {
 	DropdownMenu,
@@ -13,23 +28,14 @@ import {
 	DropdownMenuSeparator,
 	DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
-import { useQuery } from "@tanstack/react-query";
-import { giftKeys } from "@/queries/keys";
-import { db } from "@/lib/appwrite";
-import { readGiftSchema } from "@/lib/constants";
-import { env } from "@/env";
-import {
-	Breadcrumb,
-	BreadcrumbItem,
-	BreadcrumbLink,
-	BreadcrumbList,
-	BreadcrumbPage,
-	BreadcrumbSeparator,
-} from "./ui/breadcrumb";
 import { Skeleton } from "./ui/skeleton";
-import { Plus, Share } from "lucide-react";
 
 export function NavBar() {
+	const { isCopied, copyToClipboard } = useCopyToClipboard({
+		onCopy: () => {
+			toast.success("Link copied to clipboard!");
+		},
+	});
 	const user = useUser();
 	const handleSignOut = async () => {
 		toast.promise(authService.logout(), {
@@ -60,6 +66,28 @@ export function NavBar() {
 		enabled: !!id,
 	});
 	const isEditRoute = location === `/app/${id}/edit`;
+
+	const handleShare = () => {
+		const url = window.location.href;
+		const title = "Gift Swap - Check out this gift!";
+		const text = `Take a look at this gift: ${data?.title || "a gift on Gift Swap"}.`;
+		if (navigator.share) {
+			toast.promise(
+				navigator.share({
+					title,
+					text,
+					url,
+				}),
+				{
+					loading: "Sharing...",
+					success: "Gift shared successfully!",
+					error: (err) =>
+						err instanceof Error ? err.message : "Error sharing gift.",
+				},
+			);
+		}
+		copyToClipboard(url);
+	};
 
 	return (
 		<header className="sticky top-0 w-full h-16 border-b flex items-center justify-between px-4 bg-background z-50">
@@ -116,8 +144,13 @@ export function NavBar() {
 					<Plus />
 				</Link>
 				{id && (
-					<Button size={"icon"}>
-						<Share />
+					<Button
+						size={"icon"}
+						variant="secondary"
+						onClick={handleShare}
+						disabled={isCopied}
+					>
+						{isCopied ? <Check /> : <Share />}
 					</Button>
 				)}
 				{user ? (

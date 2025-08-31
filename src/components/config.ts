@@ -1,4 +1,4 @@
-import { Star, Heart, Repeat, Gift } from "lucide-react";
+import { Gift, Heart, Repeat, Star } from "lucide-react";
 
 export const conditionConfig = {
 	new: {
