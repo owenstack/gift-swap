@@ -46,7 +46,7 @@ function RouteComponent() {
 		toast.promise(promise, {
 			loading: "Signing up...",
 			success: () => {
-				navigate({ to: "/app" });
+				navigate({ to: "/" });
 				return "Signed up successfully!";
 			},
 			error: (err) =>

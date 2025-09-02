@@ -10,43 +10,51 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TosRouteImport } from './routes/tos'
-import { Route as AppRouteImport } from './routes/app'
 import { Route as AuthRouteImport } from './routes/_auth'
-import { Route as IndexRouteImport } from './routes/index'
-import { Route as AppIndexRouteImport } from './routes/app.index'
-import { Route as AppSettingsRouteImport } from './routes/app.settings'
-import { Route as AppNewRouteImport } from './routes/app.new'
-import { Route as AppMessageRouteImport } from './routes/app.message'
-import { Route as AppItemIdRouteImport } from './routes/app.$itemId'
+import { Route as AppRouteImport } from './routes/_app'
+import { Route as AppIndexRouteImport } from './routes/_app.index'
 import { Route as AuthSignupRouteImport } from './routes/_auth.signup'
 import { Route as AuthLoginRouteImport } from './routes/_auth.login'
 import { Route as AuthFailedRouteImport } from './routes/_auth.failed'
-import { Route as AppMessageMessageIdRouteImport } from './routes/app.message.$messageId'
-import { Route as AppItemIdEditRouteImport } from './routes/app.$itemId.edit'
+import { Route as AppSettingsRouteImport } from './routes/_app.settings'
+import { Route as AppNewRouteImport } from './routes/_app.new'
+import { Route as AppMessageRouteImport } from './routes/_app.message'
+import { Route as AppItemIdRouteImport } from './routes/_app.$itemId'
+import { Route as AppMessageMessageIdRouteImport } from './routes/_app.message.$messageId'
+import { Route as AppItemIdEditRouteImport } from './routes/_app.$itemId.edit'
 
 const TosRoute = TosRouteImport.update({
   id: '/tos',
   path: '/tos',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AppRoute = AppRouteImport.update({
-  id: '/app',
-  path: '/app',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const AuthRoute = AuthRouteImport.update({
   id: '/_auth',
   getParentRoute: () => rootRouteImport,
 } as any)
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
+const AppRoute = AppRouteImport.update({
+  id: '/_app',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AppIndexRoute = AppIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => AppRoute,
+} as any)
+const AuthSignupRoute = AuthSignupRouteImport.update({
+  id: '/signup',
+  path: '/signup',
+  getParentRoute: () => AuthRoute,
+} as any)
+const AuthLoginRoute = AuthLoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => AuthRoute,
+} as any)
+const AuthFailedRoute = AuthFailedRouteImport.update({
+  id: '/failed',
+  path: '/failed',
+  getParentRoute: () => AuthRoute,
 } as any)
 const AppSettingsRoute = AppSettingsRouteImport.update({
   id: '/settings',
@@ -68,21 +76,6 @@ const AppItemIdRoute = AppItemIdRouteImport.update({
   path: '/$itemId',
   getParentRoute: () => AppRoute,
 } as any)
-const AuthSignupRoute = AuthSignupRouteImport.update({
-  id: '/signup',
-  path: '/signup',
-  getParentRoute: () => AuthRoute,
-} as any)
-const AuthLoginRoute = AuthLoginRouteImport.update({
-  id: '/login',
-  path: '/login',
-  getParentRoute: () => AuthRoute,
-} as any)
-const AuthFailedRoute = AuthFailedRouteImport.update({
-  id: '/failed',
-  path: '/failed',
-  getParentRoute: () => AuthRoute,
-} as any)
 const AppMessageMessageIdRoute = AppMessageMessageIdRouteImport.update({
   id: '/$messageId',
   path: '/$messageId',
@@ -95,103 +88,94 @@ const AppItemIdEditRoute = AppItemIdEditRouteImport.update({
 } as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
-  '/app': typeof AppRouteWithChildren
   '/tos': typeof TosRoute
+  '/$itemId': typeof AppItemIdRouteWithChildren
+  '/message': typeof AppMessageRouteWithChildren
+  '/new': typeof AppNewRoute
+  '/settings': typeof AppSettingsRoute
   '/failed': typeof AuthFailedRoute
   '/login': typeof AuthLoginRoute
   '/signup': typeof AuthSignupRoute
-  '/app/$itemId': typeof AppItemIdRouteWithChildren
-  '/app/message': typeof AppMessageRouteWithChildren
-  '/app/new': typeof AppNewRoute
-  '/app/settings': typeof AppSettingsRoute
-  '/app/': typeof AppIndexRoute
-  '/app/$itemId/edit': typeof AppItemIdEditRoute
-  '/app/message/$messageId': typeof AppMessageMessageIdRoute
+  '/': typeof AppIndexRoute
+  '/$itemId/edit': typeof AppItemIdEditRoute
+  '/message/$messageId': typeof AppMessageMessageIdRoute
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
   '/tos': typeof TosRoute
+  '/$itemId': typeof AppItemIdRouteWithChildren
+  '/message': typeof AppMessageRouteWithChildren
+  '/new': typeof AppNewRoute
+  '/settings': typeof AppSettingsRoute
   '/failed': typeof AuthFailedRoute
   '/login': typeof AuthLoginRoute
   '/signup': typeof AuthSignupRoute
-  '/app/$itemId': typeof AppItemIdRouteWithChildren
-  '/app/message': typeof AppMessageRouteWithChildren
-  '/app/new': typeof AppNewRoute
-  '/app/settings': typeof AppSettingsRoute
-  '/app': typeof AppIndexRoute
-  '/app/$itemId/edit': typeof AppItemIdEditRoute
-  '/app/message/$messageId': typeof AppMessageMessageIdRoute
+  '/': typeof AppIndexRoute
+  '/$itemId/edit': typeof AppItemIdEditRoute
+  '/message/$messageId': typeof AppMessageMessageIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/': typeof IndexRoute
+  '/_app': typeof AppRouteWithChildren
   '/_auth': typeof AuthRouteWithChildren
-  '/app': typeof AppRouteWithChildren
   '/tos': typeof TosRoute
+  '/_app/$itemId': typeof AppItemIdRouteWithChildren
+  '/_app/message': typeof AppMessageRouteWithChildren
+  '/_app/new': typeof AppNewRoute
+  '/_app/settings': typeof AppSettingsRoute
   '/_auth/failed': typeof AuthFailedRoute
   '/_auth/login': typeof AuthLoginRoute
   '/_auth/signup': typeof AuthSignupRoute
-  '/app/$itemId': typeof AppItemIdRouteWithChildren
-  '/app/message': typeof AppMessageRouteWithChildren
-  '/app/new': typeof AppNewRoute
-  '/app/settings': typeof AppSettingsRoute
-  '/app/': typeof AppIndexRoute
-  '/app/$itemId/edit': typeof AppItemIdEditRoute
-  '/app/message/$messageId': typeof AppMessageMessageIdRoute
+  '/_app/': typeof AppIndexRoute
+  '/_app/$itemId/edit': typeof AppItemIdEditRoute
+  '/_app/message/$messageId': typeof AppMessageMessageIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    | '/'
-    | '/app'
     | '/tos'
+    | '/$itemId'
+    | '/message'
+    | '/new'
+    | '/settings'
     | '/failed'
     | '/login'
     | '/signup'
-    | '/app/$itemId'
-    | '/app/message'
-    | '/app/new'
-    | '/app/settings'
-    | '/app/'
-    | '/app/$itemId/edit'
-    | '/app/message/$messageId'
+    | '/'
+    | '/$itemId/edit'
+    | '/message/$messageId'
   fileRoutesByTo: FileRoutesByTo
   to:
-    | '/'
     | '/tos'
+    | '/$itemId'
+    | '/message'
+    | '/new'
+    | '/settings'
     | '/failed'
     | '/login'
     | '/signup'
-    | '/app/$itemId'
-    | '/app/message'
-    | '/app/new'
-    | '/app/settings'
-    | '/app'
-    | '/app/$itemId/edit'
-    | '/app/message/$messageId'
+    | '/'
+    | '/$itemId/edit'
+    | '/message/$messageId'
   id:
     | '__root__'
-    | '/'
+    | '/_app'
     | '/_auth'
-    | '/app'
     | '/tos'
+    | '/_app/$itemId'
+    | '/_app/message'
+    | '/_app/new'
+    | '/_app/settings'
     | '/_auth/failed'
     | '/_auth/login'
     | '/_auth/signup'
-    | '/app/$itemId'
-    | '/app/message'
-    | '/app/new'
-    | '/app/settings'
-    | '/app/'
-    | '/app/$itemId/edit'
-    | '/app/message/$messageId'
+    | '/_app/'
+    | '/_app/$itemId/edit'
+    | '/_app/message/$messageId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
-  AuthRoute: typeof AuthRouteWithChildren
   AppRoute: typeof AppRouteWithChildren
+  AuthRoute: typeof AuthRouteWithChildren
   TosRoute: typeof TosRoute
 }
 
@@ -204,13 +188,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TosRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/app': {
-      id: '/app'
-      path: '/app'
-      fullPath: '/app'
-      preLoaderRoute: typeof AppRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/_auth': {
       id: '/_auth'
       path: ''
@@ -218,46 +195,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
+    '/_app': {
+      id: '/_app'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof AppRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/app/': {
-      id: '/app/'
+    '/_app/': {
+      id: '/_app/'
       path: '/'
-      fullPath: '/app/'
+      fullPath: '/'
       preLoaderRoute: typeof AppIndexRouteImport
-      parentRoute: typeof AppRoute
-    }
-    '/app/settings': {
-      id: '/app/settings'
-      path: '/settings'
-      fullPath: '/app/settings'
-      preLoaderRoute: typeof AppSettingsRouteImport
-      parentRoute: typeof AppRoute
-    }
-    '/app/new': {
-      id: '/app/new'
-      path: '/new'
-      fullPath: '/app/new'
-      preLoaderRoute: typeof AppNewRouteImport
-      parentRoute: typeof AppRoute
-    }
-    '/app/message': {
-      id: '/app/message'
-      path: '/message'
-      fullPath: '/app/message'
-      preLoaderRoute: typeof AppMessageRouteImport
-      parentRoute: typeof AppRoute
-    }
-    '/app/$itemId': {
-      id: '/app/$itemId'
-      path: '/$itemId'
-      fullPath: '/app/$itemId'
-      preLoaderRoute: typeof AppItemIdRouteImport
       parentRoute: typeof AppRoute
     }
     '/_auth/signup': {
@@ -281,36 +230,50 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthFailedRouteImport
       parentRoute: typeof AuthRoute
     }
-    '/app/message/$messageId': {
-      id: '/app/message/$messageId'
+    '/_app/settings': {
+      id: '/_app/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof AppSettingsRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/new': {
+      id: '/_app/new'
+      path: '/new'
+      fullPath: '/new'
+      preLoaderRoute: typeof AppNewRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/message': {
+      id: '/_app/message'
+      path: '/message'
+      fullPath: '/message'
+      preLoaderRoute: typeof AppMessageRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/$itemId': {
+      id: '/_app/$itemId'
+      path: '/$itemId'
+      fullPath: '/$itemId'
+      preLoaderRoute: typeof AppItemIdRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/message/$messageId': {
+      id: '/_app/message/$messageId'
       path: '/$messageId'
-      fullPath: '/app/message/$messageId'
+      fullPath: '/message/$messageId'
       preLoaderRoute: typeof AppMessageMessageIdRouteImport
       parentRoute: typeof AppMessageRoute
     }
-    '/app/$itemId/edit': {
-      id: '/app/$itemId/edit'
+    '/_app/$itemId/edit': {
+      id: '/_app/$itemId/edit'
       path: '/edit'
-      fullPath: '/app/$itemId/edit'
+      fullPath: '/$itemId/edit'
       preLoaderRoute: typeof AppItemIdEditRouteImport
       parentRoute: typeof AppItemIdRoute
     }
   }
 }
-
-interface AuthRouteChildren {
-  AuthFailedRoute: typeof AuthFailedRoute
-  AuthLoginRoute: typeof AuthLoginRoute
-  AuthSignupRoute: typeof AuthSignupRoute
-}
-
-const AuthRouteChildren: AuthRouteChildren = {
-  AuthFailedRoute: AuthFailedRoute,
-  AuthLoginRoute: AuthLoginRoute,
-  AuthSignupRoute: AuthSignupRoute,
-}
-
-const AuthRouteWithChildren = AuthRoute._addFileChildren(AuthRouteChildren)
 
 interface AppItemIdRouteChildren {
   AppItemIdEditRoute: typeof AppItemIdEditRoute
@@ -354,10 +317,23 @@ const AppRouteChildren: AppRouteChildren = {
 
 const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)
 
+interface AuthRouteChildren {
+  AuthFailedRoute: typeof AuthFailedRoute
+  AuthLoginRoute: typeof AuthLoginRoute
+  AuthSignupRoute: typeof AuthSignupRoute
+}
+
+const AuthRouteChildren: AuthRouteChildren = {
+  AuthFailedRoute: AuthFailedRoute,
+  AuthLoginRoute: AuthLoginRoute,
+  AuthSignupRoute: AuthSignupRoute,
+}
+
+const AuthRouteWithChildren = AuthRoute._addFileChildren(AuthRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
-  AuthRoute: AuthRouteWithChildren,
   AppRoute: AppRouteWithChildren,
+  AuthRoute: AuthRouteWithChildren,
   TosRoute: TosRoute,
 }
 export const routeTree = rootRouteImport

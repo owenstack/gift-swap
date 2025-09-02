@@ -47,7 +47,7 @@ import { readGiftSchema } from "@/lib/constants";
 import { formatDate, getInitials } from "@/lib/helpers";
 import { giftKeys } from "@/queries/keys";
 
-export const Route = createFileRoute("/app/$itemId")({
+export const Route = createFileRoute("/_app/$itemId")({
 	component: RouteComponent,
 });
 
@@ -173,14 +173,14 @@ const GiftNotFound = () => (
 			<div className="px-6 pb-6">
 				<div className="flex items-center justify-center gap-4 pt-4 border-t border-gray-100">
 					<Link
-						to="/app"
+						to="/"
 						className={buttonVariants({ variant: "ghost", size: "sm" })}
 					>
 						<Search className="h-4 w-4" />
 						Browse Gifts
 					</Link>
 					<Link
-						to="/app/new"
+						to="/new"
 						className={buttonVariants({ variant: "ghost", size: "sm" })}
 					>
 						<Gift className="h-4 w-4" />
@@ -285,7 +285,7 @@ const GiftDetail = ({ data }: { data: z.infer<typeof readGiftSchema> }) => {
 											variant: "outline",
 											size: "sm",
 										})}
-										to="/app/$itemId/edit"
+										to="/$itemId/edit"
 										params={{
 											itemId: data.$id,
 										}}
@@ -325,7 +325,7 @@ const GiftDetail = ({ data }: { data: z.infer<typeof readGiftSchema> }) => {
 						{!isOwner && (
 							<CardFooter className="flex gap-2">
 								<Link
-									to="/app/message"
+									to="/message"
 									className={buttonVariants({ variant: "outline" })}
 								>
 									<MessageCircle className="h-4 w-4 mr-2" />

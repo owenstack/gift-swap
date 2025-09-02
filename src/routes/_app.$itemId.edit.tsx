@@ -17,7 +17,7 @@ import { useUser } from "@/lib/auth";
 import { readGiftSchema } from "@/lib/constants";
 import { giftKeys } from "@/queries/keys";
 
-export const Route = createFileRoute("/app/$itemId/edit")({
+export const Route = createFileRoute("/_app/$itemId/edit")({
 	component: RouteComponent,
 });
 
@@ -187,14 +187,14 @@ const ErrorState = () => (
 			<div className="px-6 pb-6">
 				<div className="flex items-center justify-center gap-4 pt-4 border-t border-gray-100">
 					<Link
-						to="/app"
+						to="/"
 						className={buttonVariants({ variant: "ghost", size: "sm" })}
 					>
 						<Search className="h-4 w-4" />
 						Browse Gifts
 					</Link>
 					<Link
-						to="/app/new"
+						to="/new"
 						className={buttonVariants({ variant: "ghost", size: "sm" })}
 					>
 						<Gift className="h-4 w-4" />

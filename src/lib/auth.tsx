@@ -74,8 +74,8 @@ class AuthService {
 		account.createOAuth2Session({
 			provider: OAuthProvider.Google,
 			success: import.meta.env.DEV
-				? "http://localhost:3000/app"
-				: `${env.VITE_APP_URL}/app`,
+				? "http://localhost:3000"
+				: `${env.VITE_APP_URL}`,
 			failure: import.meta.env.DEV
 				? "http://localhost:3000/failed"
 				: `${env.VITE_APP_URL}/failed`,

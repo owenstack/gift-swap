@@ -1,7 +1,7 @@
 import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
 import { NavBar } from "@/components/navbar";
 
-export const Route = createFileRoute("/app")({
+export const Route = createFileRoute("/_app")({
 	beforeLoad: ({ context, location }) => {
 		const { user, isLoading } = context.auth.getSnapshot();
 		if (!isLoading && !user) {
@@ -10,7 +10,7 @@ export const Route = createFileRoute("/app")({
 				search: {
 					redirectTo: location.href,
 				},
-			});
+			})
 		}
 	},
 	component: RouteComponent,
@@ -22,5 +22,5 @@ function RouteComponent() {
 			<NavBar />
 			<Outlet />
 		</div>
-	);
+	)
 }

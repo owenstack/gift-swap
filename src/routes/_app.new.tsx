@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { GiftForm } from "@/components/gift-form";
 
-export const Route = createFileRoute("/app/new")({
+export const Route = createFileRoute("/_app/new")({
 	component: RouteComponent,
 });
 
@@ -10,5 +10,5 @@ function RouteComponent() {
 		<div>
 			<GiftForm />
 		</div>
-	);
+	)
 }

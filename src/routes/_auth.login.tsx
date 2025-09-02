@@ -44,7 +44,7 @@ function RouteComponent() {
 		toast.promise(promise, {
 			loading: "Logging in...",
 			success: () => {
-				navigate({ to: "/app" });
+				navigate({ to: "/" });
 				return "Logged in successfully!";
 			},
 			error: (err) =>

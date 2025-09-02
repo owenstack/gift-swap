@@ -68,7 +68,7 @@ export function NavBar() {
 		},
 		enabled: !!id,
 	});
-	const isEditRoute = location === `/app/${id}/edit`;
+	const isEditRoute = location === `/${id}/edit`;
 
 	const handleShare = () => {
 		const url = window.location.href;
@@ -100,7 +100,7 @@ export function NavBar() {
 					<BreadcrumbList>
 						<BreadcrumbItem>
 							<BreadcrumbLink asChild>
-								<Link to="/app">Home</Link>
+								<Link to="/">Home</Link>
 							</BreadcrumbLink>
 						</BreadcrumbItem>
 						{id && (
@@ -114,7 +114,7 @@ export function NavBar() {
 									) : isEditRoute ? (
 										<BreadcrumbLink asChild>
 											<Link
-												to="/app/$itemId"
+												to="/$itemId"
 												params={{
 													itemId: id,
 												}}
@@ -142,7 +142,7 @@ export function NavBar() {
 			</div>
 			<div className="flex items-center gap-2">
 				<Link
-					to="/app/new"
+					to="/new"
 					className={buttonVariants({ variant: "secondary", size: "icon" })}
 				>
 					<Plus />
@@ -182,7 +182,7 @@ export function NavBar() {
 							</DropdownMenuLabel>
 							<DropdownMenuSeparator />
 							<DropdownMenuItem asChild>
-								<Link to="/app/settings">Settings</Link>
+								<Link to="/settings">Settings</Link>
 							</DropdownMenuItem>
 							<DropdownMenuSeparator />
 							<DropdownMenuItem onClick={handleSignOut}>
