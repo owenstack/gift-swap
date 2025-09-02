@@ -1,19 +1,19 @@
 import { useQuery } from "@tanstack/react-query";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Gift, Home, Search, XCircle } from "lucide-react";
+import { Gift, Search, XCircle } from "lucide-react";
 import { GiftForm } from "@/components/gift-form";
 import { buttonVariants } from "@/components/ui/button";
 import {
 	Card,
 	CardContent,
 	CardDescription,
-	CardFooter,
 	CardHeader,
 	CardTitle,
 } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { env } from "@/env";
-import { db } from "@/lib/appwrite";
+import { db, Query } from "@/lib/appwrite";
+import { useUser } from "@/lib/auth";
 import { readGiftSchema } from "@/lib/constants";
 import { giftKeys } from "@/queries/keys";
 
@@ -22,6 +22,7 @@ export const Route = createFileRoute("/app/$itemId/edit")({
 });
 
 function RouteComponent() {
+	const user = useUser();
 	const { itemId } = Route.useParams();
 	const { data, isLoading } = useQuery({
 		queryKey: giftKeys.detail(itemId),
@@ -30,6 +31,7 @@ function RouteComponent() {
 				databaseId: env.VITE_APPWRITE_DATABASE_ID,
 				tableId: "gift-table",
 				rowId: itemId,
+				queries: [Query.equal("user_id", [user?.$id || ""])],
 			});
 			return readGiftSchema.parse(res);
 		},
@@ -182,12 +184,6 @@ const ErrorState = () => (
 					</ul>
 				</div>
 			</CardContent>
-			<CardFooter className="flex flex-col sm:flex-row gap-3 pt-6">
-				<Link to="/" className={buttonVariants()}>
-					<Home className="h-4 w-4" />
-					Go Home
-				</Link>
-			</CardFooter>
 			<div className="px-6 pb-6">
 				<div className="flex items-center justify-center gap-4 pt-4 border-t border-gray-100">
 					<Link

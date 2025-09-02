@@ -50,7 +50,10 @@ export function NavBar() {
 	});
 	const pathParts = location.split("/").filter(Boolean);
 	const id =
-		pathParts[1] && pathParts[1] !== "new" && pathParts[1] !== "edit"
+		pathParts[1] &&
+		pathParts[1] !== "new" &&
+		pathParts[1] !== "edit" &&
+		pathParts[1] !== "message"
 			? pathParts[1]
 			: undefined;
 	const { data, isLoading, error } = useQuery({
@@ -115,6 +118,7 @@ export function NavBar() {
 												params={{
 													itemId: id,
 												}}
+												className="line-clamp-1"
 											>
 												{data?.title}
 											</Link>

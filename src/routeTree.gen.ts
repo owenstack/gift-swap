@@ -16,10 +16,12 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AppIndexRouteImport } from './routes/app.index'
 import { Route as AppSettingsRouteImport } from './routes/app.settings'
 import { Route as AppNewRouteImport } from './routes/app.new'
+import { Route as AppMessageRouteImport } from './routes/app.message'
 import { Route as AppItemIdRouteImport } from './routes/app.$itemId'
 import { Route as AuthSignupRouteImport } from './routes/_auth.signup'
 import { Route as AuthLoginRouteImport } from './routes/_auth.login'
 import { Route as AuthFailedRouteImport } from './routes/_auth.failed'
+import { Route as AppMessageMessageIdRouteImport } from './routes/app.message.$messageId'
 import { Route as AppItemIdEditRouteImport } from './routes/app.$itemId.edit'
 
 const TosRoute = TosRouteImport.update({
@@ -56,6 +58,11 @@ const AppNewRoute = AppNewRouteImport.update({
   path: '/new',
   getParentRoute: () => AppRoute,
 } as any)
+const AppMessageRoute = AppMessageRouteImport.update({
+  id: '/message',
+  path: '/message',
+  getParentRoute: () => AppRoute,
+} as any)
 const AppItemIdRoute = AppItemIdRouteImport.update({
   id: '/$itemId',
   path: '/$itemId',
@@ -76,6 +83,11 @@ const AuthFailedRoute = AuthFailedRouteImport.update({
   path: '/failed',
   getParentRoute: () => AuthRoute,
 } as any)
+const AppMessageMessageIdRoute = AppMessageMessageIdRouteImport.update({
+  id: '/$messageId',
+  path: '/$messageId',
+  getParentRoute: () => AppMessageRoute,
+} as any)
 const AppItemIdEditRoute = AppItemIdEditRouteImport.update({
   id: '/edit',
   path: '/edit',
@@ -90,10 +102,12 @@ export interface FileRoutesByFullPath {
   '/login': typeof AuthLoginRoute
   '/signup': typeof AuthSignupRoute
   '/app/$itemId': typeof AppItemIdRouteWithChildren
+  '/app/message': typeof AppMessageRouteWithChildren
   '/app/new': typeof AppNewRoute
   '/app/settings': typeof AppSettingsRoute
   '/app/': typeof AppIndexRoute
   '/app/$itemId/edit': typeof AppItemIdEditRoute
+  '/app/message/$messageId': typeof AppMessageMessageIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -102,10 +116,12 @@ export interface FileRoutesByTo {
   '/login': typeof AuthLoginRoute
   '/signup': typeof AuthSignupRoute
   '/app/$itemId': typeof AppItemIdRouteWithChildren
+  '/app/message': typeof AppMessageRouteWithChildren
   '/app/new': typeof AppNewRoute
   '/app/settings': typeof AppSettingsRoute
   '/app': typeof AppIndexRoute
   '/app/$itemId/edit': typeof AppItemIdEditRoute
+  '/app/message/$messageId': typeof AppMessageMessageIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -117,10 +133,12 @@ export interface FileRoutesById {
   '/_auth/login': typeof AuthLoginRoute
   '/_auth/signup': typeof AuthSignupRoute
   '/app/$itemId': typeof AppItemIdRouteWithChildren
+  '/app/message': typeof AppMessageRouteWithChildren
   '/app/new': typeof AppNewRoute
   '/app/settings': typeof AppSettingsRoute
   '/app/': typeof AppIndexRoute
   '/app/$itemId/edit': typeof AppItemIdEditRoute
+  '/app/message/$messageId': typeof AppMessageMessageIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -132,10 +150,12 @@ export interface FileRouteTypes {
     | '/login'
     | '/signup'
     | '/app/$itemId'
+    | '/app/message'
     | '/app/new'
     | '/app/settings'
     | '/app/'
     | '/app/$itemId/edit'
+    | '/app/message/$messageId'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -144,10 +164,12 @@ export interface FileRouteTypes {
     | '/login'
     | '/signup'
     | '/app/$itemId'
+    | '/app/message'
     | '/app/new'
     | '/app/settings'
     | '/app'
     | '/app/$itemId/edit'
+    | '/app/message/$messageId'
   id:
     | '__root__'
     | '/'
@@ -158,10 +180,12 @@ export interface FileRouteTypes {
     | '/_auth/login'
     | '/_auth/signup'
     | '/app/$itemId'
+    | '/app/message'
     | '/app/new'
     | '/app/settings'
     | '/app/'
     | '/app/$itemId/edit'
+    | '/app/message/$messageId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -222,6 +246,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppNewRouteImport
       parentRoute: typeof AppRoute
     }
+    '/app/message': {
+      id: '/app/message'
+      path: '/message'
+      fullPath: '/app/message'
+      preLoaderRoute: typeof AppMessageRouteImport
+      parentRoute: typeof AppRoute
+    }
     '/app/$itemId': {
       id: '/app/$itemId'
       path: '/$itemId'
@@ -249,6 +280,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/failed'
       preLoaderRoute: typeof AuthFailedRouteImport
       parentRoute: typeof AuthRoute
+    }
+    '/app/message/$messageId': {
+      id: '/app/message/$messageId'
+      path: '/$messageId'
+      fullPath: '/app/message/$messageId'
+      preLoaderRoute: typeof AppMessageMessageIdRouteImport
+      parentRoute: typeof AppMessageRoute
     }
     '/app/$itemId/edit': {
       id: '/app/$itemId/edit'
@@ -286,8 +324,21 @@ const AppItemIdRouteWithChildren = AppItemIdRoute._addFileChildren(
   AppItemIdRouteChildren,
 )
 
+interface AppMessageRouteChildren {
+  AppMessageMessageIdRoute: typeof AppMessageMessageIdRoute
+}
+
+const AppMessageRouteChildren: AppMessageRouteChildren = {
+  AppMessageMessageIdRoute: AppMessageMessageIdRoute,
+}
+
+const AppMessageRouteWithChildren = AppMessageRoute._addFileChildren(
+  AppMessageRouteChildren,
+)
+
 interface AppRouteChildren {
   AppItemIdRoute: typeof AppItemIdRouteWithChildren
+  AppMessageRoute: typeof AppMessageRouteWithChildren
   AppNewRoute: typeof AppNewRoute
   AppSettingsRoute: typeof AppSettingsRoute
   AppIndexRoute: typeof AppIndexRoute
@@ -295,6 +346,7 @@ interface AppRouteChildren {
 
 const AppRouteChildren: AppRouteChildren = {
   AppItemIdRoute: AppItemIdRouteWithChildren,
+  AppMessageRoute: AppMessageRouteWithChildren,
   AppNewRoute: AppNewRoute,
   AppSettingsRoute: AppSettingsRoute,
   AppIndexRoute: AppIndexRoute,
